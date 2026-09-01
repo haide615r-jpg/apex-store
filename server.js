@@ -6,6 +6,9 @@ const stripe = require('stripe')('sk_test_51UAbYTGT8MuTHLgkkYgAeV5QsEgKfilZD41Po
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index_8.html');
+});
 
 // Stripe Checkout Session Endpoint
 app.post('/create-checkout-session', async (req, res) => {
