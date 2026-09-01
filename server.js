@@ -19,7 +19,7 @@ app.post('/create-checkout-session', async (req, res) => {
             payment_method_types: ['card'],
             line_items: (items || [{ name: 'Apex Store Product', price: 29.99 }]).map(item => ({
                 price_data: {
-                    currency: 'usd',
+                    currency: 'pkr',
                     product_data: { name: item.name },
                     unit_amount: Math.round(item.price * 100), // Amount in cents
                 },
