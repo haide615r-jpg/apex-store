@@ -487,7 +487,6 @@
       <span class="text-muted">Subtotal</span>
       <span id="cartSubtotal" class="font-semibold text-base">Rs 0</span>
     </div>
-    <button id="checkoutBtn" onclick="handleCheckout()" class="btn-glow w-full bg-signal text-void font-display font-semibold px-7 py-3.5 rounded-full hover:scale-[1.02] transition-transform">Checkout</button>
     <p class="text-center text-muted text-xs">Free shipping on all prepaid orders.</p>
   </div>
 </aside>
@@ -1324,20 +1323,32 @@
   });
 })();
 
-async function handleCheckout() {
+async function handleCheckout(productName, productPrice) {
     try {
-        const response = await fetch('create-checkout-session', {
+        const response = await fetch('/create-checkout-session', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 items: [
-                    { name: 'Apex Gym Product', price: 29.99, quantity: 1 }
+                    { name: productName, price: productPrice, quantity: 1 }
                 ]
             })
         });
 
+        const data = await response.json();
+
+        if (data.url) {
+            window.location.href = data.url;
+        } else {
+            alert('Checkout error: ' + (data.error || 'Something went wrong'));
+        }
+    } catch (err) {
+        console.error('Error:', err);
+        alert('Network or server error');
+    }
+}
         const data = await response.json();
         
         if (data.url) {
