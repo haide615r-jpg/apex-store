@@ -830,15 +830,16 @@
   function findProduct(id) { return PRODUCTS.find((x) => x.id === Number(id)); }
 
   function addToCart(id) {
-    const existing = cart.find((c) => c.id === Number(id));
-    const product = PRODUCTS.find(p => p.id === Number(id));
+   const product = PRODUCTS.find(p => p.id === Number(id));
+const existing = cart.find(item => item.id === Number(id)); // یہ لائن بہت ضروری ہے تاکہ ایرر نہ آئے
+
 if (existing) {
     existing.qty += 1;
 } else {
     cart.push({ 
         id: Number(id), 
         name: product ? product.name : "Product", 
-        price: product ? product.price : 1299, 
+        price: product ? product.price : 1000, 
         qty: 1 
     });
 }
