@@ -13,17 +13,25 @@ app.get('/', (req, res) => {
 // Stripe Checkout Session Endpoint
 app.post('/create-checkout-session', async (req, res) => {
     try {
-        const { items } = req.body;
+        console.log("Request received with body:", req.body);
+        
+        // Agar frontend se items aayein hain toh unhein use karo, warna default product rakho
+        const cartItems = (req.body && req.body.items && req.body.items.length > 0) 
+            ? req.body.items 
+            : [{ name: 'Apex Store Product', price: 29.99, quantity: 1 }];
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
-            line_items: (items || [{ name: 'Apex Store Product', price: 29.99 }]).map(item => ({
+            line_items: cartItems.map(item => ({
                 price_data: {
-                    currency: 'pkr',
-                    product_data: { name: item.name },
-                    unit_amount: Math.round(item.price * 100), // Amount in cents
+                    currency: 'usd',
+                    product_data: { 
+                        name: item.name || 'Apex Store Product' 
+                    },
+                    // Yeh line cart ya product ki real price ko dynamically cents mein convert karegi
+                    unit_amount: Math.round(Number(item.price || 29.99) * 100),
                 },
-                quantity: item.quantity || 1,
+                quantity: Number(item.quantity || 1),
             })),
             mode: 'payment',
             success_url: 'https://apex-store-efe161.netlify.app/?success=true',
@@ -32,6 +40,7 @@ app.post('/create-checkout-session', async (req, res) => {
 
         res.json({ url: session.url });
     } catch (error) {
+        console.error("CRITICAL STRIPE ERROR:", error.message);
         res.status(500).json({ error: error.message });
     }
 });

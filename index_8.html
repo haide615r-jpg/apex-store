@@ -831,8 +831,17 @@
 
   function addToCart(id) {
     const existing = cart.find((c) => c.id === Number(id));
-    if (existing) existing.qty += 1;
-    else cart.push({ id: Number(id), qty: 1 });
+    const product = PRODUCTS.find(p => p.id === Number(id));
+if (existing) {
+    existing.qty += 1;
+} else {
+    cart.push({ 
+        id: Number(id), 
+        name: product ? product.name : "Product", 
+        price: product ? product.price : 1299, 
+        qty: 1 
+    });
+}
     renderCart();
     pulseCartBadge();
   }
@@ -1325,6 +1334,36 @@
   });
 })();
 
+</script>
+<script>
+    // Safe independent checkout listener
+    document.addEventListener("DOMContentLoaded", () => {
+        const checkoutBtn = document.querySelector("#checkoutBtn") || document.getElementById("checkoutBtn");
+        if (checkoutBtn) {
+            checkoutBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (typeof cart !== 'undefined' && cart.length === 0) {
+                    alert("Your cart is empty");
+                    return;
+                }
+                
+                fetch('http://localhost:5000/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                   body: JSON.stringify({ items: (typeof cart !== 'undefined' && cart.length > 0) ? cart : JSON.parse(localStorage.getItem('cart') || localStorage.getItem('cartItems') || localStorage.getItem('shopping_cart') || '[]') })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        alert("Failed to create checkout session");
+                    }
+                })
+                .catch(err => console.error("Checkout error:", err));
+            });
+        }
+    });
 </script>
 </body>
 </html>
