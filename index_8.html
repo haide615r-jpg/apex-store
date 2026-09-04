@@ -1348,41 +1348,20 @@ if (existing) {
                     return;
                 }
                 
-               // ویب سائٹ کے ایلیمنٹ سے براہ راست اصل قیمت اور نام اٹھانا
-    let dynamicPrice = 29.99;
-    let dynamicName = "Apex Store Product";
-
-    // فرض کریں آپ کے پیج پر قیمت دکھانے کے لیے کوئی کلاس یا آئی ڈی ہے، 
-    // یا ہم localStorage سے ڈائریکٹ قیمت نکالتے ہیں:
-    try {
-        let storedCart = JSON.parse(localStorage.getItem('cart') || localStorage.getItem('cartItems') || localStorage.getItem('shopping_cart') || '[]');
-        if (storedCart.length > 0) {
-            dynamicPrice = Number(storedCart[0].price || storedCart[0].amount || 29.99);
-            dynamicName = storedCart[0].name || storedCart[0].title || "Apex Store Product";
-        }
-    } catch(e) {
-        console.log("Error reading cart:", e);
-    }
-
-    fetch('https://apex-store-production-afb4.up.railway.app/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-            items: [{ 
-                name: dynamicName, 
-                price: dynamicPrice 
-            }] 
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.url) {
-            window.location.href = data.url;
-        } else {
-            alert("Failed to create checkout session");
-        }
-    })
-    .catch(err => console.error("Checkout error:", err));
+                fetch('https://apex-store-production-afb4.up.railway.app/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                   body: JSON.stringify({ items: (typeof cart !== 'undefined' && cart.length > 0) ? cart : JSON.parse(localStorage.getItem('cart') || localStorage.getItem('cartItems') || localStorage.getItem('shopping_cart') || '[]') })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        alert("Failed to create checkout session");
+                    }
+                })
+                .catch(err => console.error("Checkout error:", err));
             });
         }
     });
