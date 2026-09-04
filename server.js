@@ -14,28 +14,25 @@ app.get('/', (req, res) => {
 app.post('/create-checkout-session', async (req, res) => {
     try {
         console.log("Full Request Body Received:", JSON.stringify(req.body));
-    console.log("Extracted Unit Amount:", unitAmount);
-      let unitAmount = 29.99; // Fallback
-    let productName = "Apex Store Product";
 
-    if (req.body) {
-        // اگر ڈیٹا 'items' نام کی ارے میں آ رہا ہے
-        let rawItems = req.body.items || req.body.cart || req.body;
-        if (Array.isArray(rawItems) && rawItems.length > 0) {
-            const item = rawItems[0];
-            if (item.price) unitAmount = Number(item.price);
-            else if (item.amount) unitAmount = Number(item.amount);
-            else if (item.cost) unitAmount = Number(item.cost);
-            
-            if (item.name) productName = item.name;
-            else if (item.title) productName = item.title;
+        let unitAmount = 29.99; // Default fallback price in USD
+        let productName = "Apex Store Product";
+
+        // Check if items array exists and has elements
+        if (req.body && req.body.items && Array.isArray(req.body.items) && req.body.items.length > 0) {
+            const item = req.body.items[0];
+            if (item.price) {
+                unitAmount = Number(item.price);
+            }
+            if (item.name) {
+                productName = item.name;
+            }
         } 
-        // اگر ڈیٹا سیدھا سنگل آبجیکٹ کی شکل میں آ رہا ہو
-        else if (req.body.price) {
+        // If data came directly without 'items' wrapper
+        else if (req.body && req.body.price) {
             unitAmount = Number(req.body.price);
             if (req.body.name) productName = req.body.name;
         }
-    }
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
