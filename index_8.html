@@ -1348,7 +1348,7 @@ if (existing) {
                     return;
                 }
                 
-                fetch('http://localhost:5000/create-checkout-session', {
+                fetch('https://apex-store-production-afb4.up.railway.app/create-checkout-session', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                    body: JSON.stringify({ items: (typeof cart !== 'undefined' && cart.length > 0) ? cart : JSON.parse(localStorage.getItem('cart') || localStorage.getItem('cartItems') || localStorage.getItem('shopping_cart') || '[]') })
