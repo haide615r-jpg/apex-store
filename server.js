@@ -15,7 +15,7 @@ app.post('/create-checkout-session', async (req, res) => {
     try {
         console.log("Full Request Body Received:", JSON.stringify(req.body));
 
-       let unitAmount = 0;
+       let unitAmount = 29.99;
     let productName = "Apex Store Product";
 
     if (req.body && req.body.items && Array.isArray(req.body.items) && req.body.items.length > 0) {
