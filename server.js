@@ -15,19 +15,14 @@ app.post('/create-checkout-session', async (req, res) => {
     try {
         console.log("Full Request Body Received:", JSON.stringify(req.body));
 
-        let unitAmount = 29.99; // Default fallback price in USD
-        let productName = "Apex Store Product";
+       let unitAmount = 0;
+    let productName = "Apex Store Product";
 
-        // Check if items array exists and has elements
-        if (req.body && req.body.items && Array.isArray(req.body.items) && req.body.items.length > 0) {
-            const item = req.body.items[0];
-            if (item.price) {
-                unitAmount = Number(item.price);
-            }
-            if (item.name) {
-                productName = item.name;
-            }
-        } 
+    if (req.body && req.body.items && Array.isArray(req.body.items) && req.body.items.length > 0) {
+        const item = req.body.items[0];
+        if (item.price) unitAmount = Number(item.price);
+        if (item.name) productName = item.name;
+    }
         // If data came directly without 'items' wrapper
         else if (req.body && req.body.price) {
             unitAmount = Number(req.body.price);
