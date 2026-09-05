@@ -1348,10 +1348,32 @@
     $("#cartBtn").addEventListener("click", openCart);
     $("#cartCloseBtn").addEventListener("click", closeCart);
     $("#cartOverlay").addEventListener("click", closeCart);
-    $("#checkoutBtn").addEventListener("click", () => {
-      if (cart.length === 0) { showToast("Your cart is empty", "fa-circle-info"); return; }
-      showToast("Demo checkout — connect a payment gateway to go live", "fa-circle-info");
+   $("#checkoutBtn").addEventListener("click", () => {
+    if (cart.length === 0) { 
+        showToast("Your cart is empty", "fa-circle-info"); 
+        return; 
+    }
+    
+    // Yahan Railway backend ke liye fetch request lagayen
+    fetch("https://apex-store-production-afb4.up.railway.app/create-checkout-session", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            items: cart
+        })
+    })
+    .then(response => response.json())
+    .then(session => {
+        if (session.url) {
+            window.location.href = session.url; // Stripe checkout page par redirect kar dega
+        }
+    })
+    .catch(error => {
+        console.error("Checkout Error:", error);
     });
+});
   }
 
   function initModals() {
