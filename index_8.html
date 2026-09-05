@@ -114,7 +114,7 @@
 
   /* Cards */
   .card{ background:#14161D; border:1px solid #262A36; transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease; }
-  .card:hover{ transform:translateY(-6px); border-color:#8C7CFF; box-shadow:0 20px 40px -20px rgba(0,0,0,0.6); }
+  .card:hover{ transform:translateY(-6px); border-color:#8C7CFF; box-shadow:0 20px 40px -20px rgba(0,0,0,0.6), 0 0 30px -8px rgba(140,124,255,0.3); }
   .cat-card{ background:#14161D; border:1px solid #262A36; transition:transform .35s ease, border-color .35s ease; }
   .cat-card:hover{ transform:translateY(-4px) scale(1.01); border-color:#8C7CFF; }
   .cat-card:hover .cat-arrow{ transform:translateX(4px); }
@@ -171,6 +171,13 @@
 </style>
 </head>
 <body class="bg-void text-ink font-body antialiased">
+
+<!-- Ambient background glow — fixed, sits behind all content -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+  <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-signal/10 rounded-full blur-[120px]"></div>
+  <div class="absolute top-[40%] right-[-10%] w-[500px] h-[500px] bg-mint/10 rounded-full blur-[120px]"></div>
+  <div class="absolute bottom-[-10%] left-[20%] w-[400px] h-[400px] bg-warm/5 rounded-full blur-[120px]"></div>
+</div>
 
 <!-- ============ NAV ============ -->
 <header id="nav" class="fixed top-0 inset-x-0 z-50">
@@ -358,6 +365,54 @@
   </div>
 </section>
 
+<!-- ============ RATING / TESTIMONIALS ============ -->
+<section id="testimonials" class="max-w-7xl mx-auto px-5 md:px-8 py-20 md:py-28">
+  <div class="text-center max-w-xl mx-auto mb-14">
+    <p data-aos="fade-up" class="font-mono text-signal text-xs tracking-widest mb-3">// CUSTOMER RATING</p>
+    <h2 data-aos="fade-up" data-aos-delay="80" class="font-display font-bold text-3xl md:text-4xl tracking-tight mb-6">Trusted by shoppers across Pakistan.</h2>
+    <div data-aos="fade-up" data-aos-delay="120" class="inline-flex items-center gap-3 border border-line bg-surface rounded-full px-5 py-2.5">
+      <span class="flex items-center gap-0.5 text-warm text-sm">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+      </span>
+      <span class="font-mono font-bold text-sm">4.8/5</span>
+      <span class="text-muted text-sm">· 500+ reviews</span>
+    </div>
+  </div>
+
+  <div class="grid sm:grid-cols-3 gap-5">
+    <div data-aos="fade-up" class="card rounded-2xl p-6 flex flex-col">
+      <span class="flex items-center gap-0.5 text-warm text-xs mb-4">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+      </span>
+      <p class="text-sm text-ink leading-relaxed mb-5 flex-1">"Ordered a power bank and it arrived in two days, well packed. Exactly as described on the site — will order from here again."</p>
+      <div class="flex items-center gap-3 pt-4 border-t border-line">
+        <span class="w-9 h-9 rounded-full bg-signal/10 text-signal flex items-center justify-center font-display font-semibold text-sm">A</span>
+        <div><p class="text-sm font-medium">Ahmed R.</p><p class="text-muted text-xs font-mono">Lahore</p></div>
+      </div>
+    </div>
+    <div data-aos="fade-up" data-aos-delay="100" class="card rounded-2xl p-6 flex flex-col">
+      <span class="flex items-center gap-0.5 text-warm text-xs mb-4">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+      </span>
+      <p class="text-sm text-ink leading-relaxed mb-5 flex-1">"Good quality earbuds for the price, and their WhatsApp support actually replies fast when I had a sizing question."</p>
+      <div class="flex items-center gap-3 pt-4 border-t border-line">
+        <span class="w-9 h-9 rounded-full bg-mint/10 text-mint flex items-center justify-center font-display font-semibold text-sm">S</span>
+        <div><p class="text-sm font-medium">Sara K.</p><p class="text-muted text-xs font-mono">Karachi</p></div>
+      </div>
+    </div>
+    <div data-aos="fade-up" data-aos-delay="200" class="card rounded-2xl p-6 flex flex-col">
+      <span class="flex items-center gap-0.5 text-warm text-xs mb-4">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+      </span>
+      <p class="text-sm text-ink leading-relaxed mb-5 flex-1">"Was a little skeptical ordering accessories online with COD, but the product was genuine and came with a warranty card."</p>
+      <div class="flex items-center gap-3 pt-4 border-t border-line">
+        <span class="w-9 h-9 rounded-full bg-warm/10 text-warm flex items-center justify-center font-display font-semibold text-sm">B</span>
+        <div><p class="text-sm font-medium">Bilal M.</p><p class="text-muted text-xs font-mono">Islamabad</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ NEWSLETTER CTA ============ -->
 <section class="max-w-7xl mx-auto px-5 md:px-8 pb-20 md:pb-28">
   <div data-aos="fade-up" class="relative overflow-hidden rounded-3xl border border-line bg-surface px-6 md:px-14 py-14 md:py-16 text-center">
@@ -397,7 +452,9 @@
       </div>
     </div>
 
-    <form id="contactForm" data-aos="fade-left" class="card rounded-2xl p-6 md:p-8 space-y-4">
+    <form id="contactForm" data-aos="fade-left" class="card relative overflow-hidden rounded-2xl p-6 md:p-8 space-y-4">
+      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-signal via-mint to-warm"></div>
+      <div class="absolute -top-16 -right-16 w-40 h-40 bg-signal/10 rounded-full blur-3xl pointer-events-none"></div>
       <div>
         <label class="block text-xs font-mono text-muted mb-2">FULL NAME</label>
         <input required type="text" name="name" placeholder="Your name" class="input-dark rounded-xl px-4 py-3 text-sm w-full">
@@ -515,6 +572,24 @@
 
 <div id="toastWrap"></div>
 
+<!-- ============ FLOATING CONTACT BUTTON (WhatsApp + Email) ============ -->
+<div class="fixed bottom-6 left-6 z-40 flex flex-col items-start gap-3">
+  <div id="fabOptions" class="hidden flex-col gap-3">
+    <a href="https://wa.me/923060111578" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"
+      class="w-12 h-12 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-card hover:scale-110 transition-transform">
+      <i class="fa-brands fa-whatsapp text-lg"></i>
+    </a>
+    <a href="mailto:Haider65820@gmail.com" aria-label="Email us"
+      class="w-12 h-12 rounded-full bg-surface border border-line text-mint flex items-center justify-center shadow-card hover:scale-110 hover:border-mint transition-transform">
+      <i class="fa-solid fa-envelope text-base"></i>
+    </a>
+  </div>
+  <button id="fabToggle" aria-label="Contact us" class="relative w-14 h-14 rounded-full bg-signal text-void flex items-center justify-center shadow-glow">
+    <span class="absolute inset-0 rounded-full bg-signal animate-ping opacity-25"></span>
+    <i id="fabIcon" class="fa-solid fa-comment-dots text-lg relative"></i>
+  </button>
+</div>
+
 <button id="backToTop" aria-label="Back to top" class="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-signal text-void flex items-center justify-center shadow-glow">
   <i class="fa-solid fa-arrow-up text-sm"></i>
 </button>
@@ -568,7 +643,7 @@
   const PRODUCTS = [
     // Earbuds & AirPods
     p("AirBuds Pro 2 Lite", "earbuds", 3499, 4999, "Sale", "1757168120889-4317e57a4849", true),
-    p("M10 TWS Earbuds", "earbuds", 1899, null, "New", "1608156639585-b3a032ef9689", false),
+    p("M10 TWS Earbuds", "earbuds", 1899, null, "New", "1722448113450-f6860b7fbfe5", false),
     p("Airdots Classic", "earbuds", 1299, null, null, "1606841837239-c5a1a4a07af7", false),
     p("ProBuds ANC Earbuds", "earbuds", 4999, null, "Best Seller", "1606220588913-b3aacb4d2f46", false),
 
@@ -587,13 +662,13 @@
     // Handsfree
     p("Neckband Bluetooth Handsfree", "handsfree", 1499, null, "Best Seller", "1589129043844-b5d920757a1b", true),
     p("Wired Stereo Handsfree", "handsfree", 399, null, null, "1484704849700-f032a568e944", false),
-    p("Sports Magnetic Neckband", "handsfree", 1799, null, "New", "1578319439584-104c94d37305", false),
-    p("Classic 3.5mm Earphones", "handsfree", 299, null, null, "1600294037681-c80b4cb5b434", false),
+    p("Sports Magnetic Neckband", "handsfree", 1799, null, "New", "1513595086754-ae9ec42d7e90", false),
+    p("Classic 3.5mm Earphones", "handsfree", 299, null, null, "1520186994231-6ea0019d8d51", false),
 
     // Headphones
     p("Studio Over-Ear Headphones", "headphones", 3999, null, "Best Seller", "1505740420928-5e560c06d30e", true),
     p("Foldable Bluetooth Headphones", "headphones", 2799, null, "New", "1618366712010-f4ae9c647dcb", false),
-    p("Gaming Headset RGB", "headphones", 3299, null, null, "1590658268037-6bf12165a8df", false),
+    p("Gaming Headset RGB", "headphones", 3299, null, null, "1487215078519-e21cc028cb29", false),
     p("Bass Boost Wireless Headphones", "headphones", 4499, 5499, "Sale", "1613040809024-b4ef7ba99bc3", false),
 
     // Mini Speakers
@@ -830,19 +905,9 @@
   function findProduct(id) { return PRODUCTS.find((x) => x.id === Number(id)); }
 
   function addToCart(id) {
-   const product = PRODUCTS.find(p => p.id === Number(id));
-const existing = cart.find(item => item.id === Number(id)); // یہ لائن بہت ضروری ہے تاکہ ایرر نہ آئے
-
-if (existing) {
-    existing.qty += 1;
-} else {
-    cart.push({ 
-        id: Number(id), 
-        name: product ? product.name : "Product", 
-        price: product ? product.price : 1000, 
-        qty: 1 
-    });
-}
+    const existing = cart.find((c) => c.id === Number(id));
+    if (existing) existing.qty += 1;
+    else cart.push({ id: Number(id), qty: 1 });
     renderCart();
     pulseCartBadge();
   }
@@ -975,6 +1040,26 @@ if (existing) {
 
     $("#qvMinus").addEventListener("click", () => { quickViewQty = Math.max(1, quickViewQty - 1); $("#qvQty").textContent = quickViewQty; });
     $("#qvPlus").addEventListener("click", () => { quickViewQty += 1; $("#qvQty").textContent = quickViewQty; });
+    $("#qvBuyNow").addEventListener("click", () => {
+    fetch("https://apex-store-production-afb4.up.railway.app/create-checkout-session", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            // اگر کوئی مقدار یا پروڈکٹ آئی ڈی بھیجنی ہو تو وہ یہاں آئے گی
+        })
+    })
+    .then(response => response.json())
+    .then(session => {
+        if (session.url) {
+            window.location.href = session.url; // سٹرائپ چیک آؤٹ پیج پر ری ڈائریکٹ کر دے گا
+        }
+    })
+    .catch(error => {
+        console.error("Railway Checkout Error:", error);
+    });
+});
     $("#qvAddCart").addEventListener("click", () => {
       for (let i = 0; i < quickViewQty; i++) addToCart(item.id);
       showToast(`${item.name} added to cart`, "fa-cart-plus");
@@ -1285,6 +1370,28 @@ if (existing) {
     });
   }
 
+  function initContactFab() {
+    const toggle = $("#fabToggle");
+    const options = $("#fabOptions");
+    const icon = $("#fabIcon");
+    let open = false;
+    toggle.addEventListener("click", () => {
+      open = !open;
+      options.classList.toggle("hidden", !open);
+      options.classList.toggle("flex", open);
+      icon.className = open ? "fa-solid fa-xmark text-lg relative" : "fa-solid fa-comment-dots text-lg relative";
+    });
+    document.addEventListener("click", (e) => {
+      if (!open) return;
+      if (!e.target.closest("#fabToggle") && !e.target.closest("#fabOptions")) {
+        open = false;
+        options.classList.add("hidden");
+        options.classList.remove("flex");
+        icon.className = "fa-solid fa-comment-dots text-lg relative";
+      }
+    });
+  }
+
   function initForms() {
     $("#newsletterForm").addEventListener("submit", (e) => {
       e.preventDefault();
@@ -1325,6 +1432,7 @@ if (existing) {
     initNav();
     initCart();
     initModals();
+    initContactFab();
     initForms();
     initBackToTop();
 
@@ -1335,36 +1443,6 @@ if (existing) {
   });
 })();
 
-</script>
-<script>
-    // Safe independent checkout listener
-    document.addEventListener("DOMContentLoaded", () => {
-        const checkoutBtn = document.querySelector("#checkoutBtn") || document.getElementById("checkoutBtn");
-        if (checkoutBtn) {
-            checkoutBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-                if (typeof cart !== 'undefined' && cart.length === 0) {
-                    alert("Your cart is empty");
-                    return;
-                }
-                
-                fetch('https://apex-store-production-afb4.up.railway.app/create-checkout-session', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                   body: JSON.stringify({ items: (typeof cart !== 'undefined' && cart.length > 0) ? cart : JSON.parse(localStorage.getItem('cart') || localStorage.getItem('cartItems') || localStorage.getItem('shopping_cart') || '[]') })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.url) {
-                        window.location.href = data.url;
-                    } else {
-                        alert("Failed to create checkout session");
-                    }
-                })
-                .catch(err => console.error("Checkout error:", err));
-            });
-        }
-    });
 </script>
 </body>
 </html>
