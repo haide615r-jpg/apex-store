@@ -473,6 +473,33 @@
       </button>
     </form>
   </div>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const name = this.querySelector('input[type="text"]').value;
+        const email = this.querySelector('input[type="email"]').value;
+        const message = this.querySelector('textarea').value;
+
+        try {
+            const response = await fetch('https://apex-store-production-afb4.up.railway.app/send-complaint', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, message })
+            });
+            
+            const data = await response.json();
+            if(data.success) {
+                alert("Message sent successfully!");
+            } else {
+                alert("Failed to send message.");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Error sending message.");
+        }
+    });
+</script>
 </section>
 
 <!-- ============ FOOTER ============ -->
@@ -1065,11 +1092,7 @@
       showToast(`${item.name} added to cart`, "fa-cart-plus");
       closeQuickView();
     });
-    $("#qvBuyNow").addEventListener("click", () => {
-      for (let i = 0; i < quickViewQty; i++) addToCart(item.id);
-      closeQuickView();
-      openCart();
-    });
+   
 
     $("#quickViewOverlay").classList.remove("hidden");
     $("#quickViewOverlay").classList.add("flex");

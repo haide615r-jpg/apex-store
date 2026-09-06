@@ -43,8 +43,8 @@ app.post('/create-checkout-session', async (req, res) => {
                 quantity: 1,
             }],
             mode: 'payment',
-            success_url: 'https://apex-store-efe161.netlify.app/?success=true',
-            cancel_url: 'https://apex-store-efe161.netlify.app/?canceled=true',
+            success_url: 'https://apex-store-b835b5.netlify.app//?success=true',
+            cancel_url: 'https://apex-store-b835b5.netlify.app//?canceled=true',
         });
 
         res.json({ url: session.url });
@@ -55,27 +55,19 @@ app.post('/create-checkout-session', async (req, res) => {
 });
 // Complaint & Subscription Email Endpoint
 app.post('/send-complaint', async (req, res) => {
-    const { name, email, message } = req.body;
-
+    console.log("Form request received:", req.body);
     try {
-        await resend.emails.send({
+        const response = await resend.emails.send({
             from: 'onboarding@resend.dev',
             to: 'haider65820@gmail.com',
-            subject: `New Message/Complaint from ${name}`,
-            text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
+            subject: 'New Message from Apex Store',
+            html: `<p>Name: ${req.body.name}</p><p>Email: ${req.body.email}</p><p>Message: ${req.body.message}</p>`
         });
-
-        await resend.emails.send({
-            from: 'onboarding@resend.dev',
-            to: email,
-            subject: 'We have received your message - Apex Store',
-            text: `Hi ${name},\n\nThank you for reaching out! We have received your message and will get back to you soon.`
-        });
-
-        res.status(200).json({ success: true, message: "Email sent successfully!" });
+        console.log("Resend API Response:", response);
+        res.json({ success: true });
     } catch (error) {
-        console.error("Email error:", error);
-        res.status(500).json({ success: false, error: "Failed to send email" });
+        console.error("Resend Error Details:", error);
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 const PORT = process.env.PORT || 5000;
